@@ -1,0 +1,8 @@
+{
+  "database": {
+    "url": "pgsql://"
+  },
+  "logging": {
+    "level": "debug"
+  }
+}
