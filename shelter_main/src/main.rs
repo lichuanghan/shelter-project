@@ -4,8 +4,10 @@ use tracing::Level;
 use tracing::level_filters::LevelFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::Registry;
+
 use shelter_main::commands;
 use shelter_main::settings;
+
 pub fn main() -> anyhow::Result<()>{
     dotenv().ok();
     let mut command = Command::new("Dog Shelter sample application")

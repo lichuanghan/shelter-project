@@ -1,8 +1,9 @@
+use clap::{ArgMatches, Command};
+
+use crate::settings::Settings;
+
 mod hello;
 mod serve;
-
-use clap::{ArgMatches, Command};
-use crate::settings::Settings;
 
 pub fn configure(command: Command) -> Command{
     command

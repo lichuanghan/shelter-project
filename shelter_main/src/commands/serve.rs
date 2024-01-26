@@ -1,7 +1,8 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
-use axum::Router;
-use clap::{value_parser, Arg, ArgMatches, Command};
+
+use clap::{Arg, ArgMatches, Command, value_parser};
 use tower_http::trace::TraceLayer;
+
 use crate::settings::Settings;
 
 pub fn configure() -> Command {

@@ -1,6 +1,6 @@
-
 use config::{Config, Environment, File};
 use serde::Deserialize;
+
 #[derive(Debug,Deserialize,Default)]
 #[allow(unused)]
 pub struct Database{

@@ -1,4 +1,5 @@
 use clap::{ArgMatches, Command};
+
 use crate::settings::Settings;
 
 pub fn configure() -> Command{
