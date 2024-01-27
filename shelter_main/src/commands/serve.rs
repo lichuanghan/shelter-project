@@ -1,9 +1,11 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+use std::sync::Arc;
 
 use clap::{Arg, ArgMatches, Command, value_parser};
 use tower_http::trace::TraceLayer;
 
 use crate::settings::Settings;
+use crate::state::ApplicationState;
 
 pub fn configure() -> Command {
     Command::new("serve").about("Start HTTP server").arg(
@@ -20,7 +22,7 @@ pub fn configure() -> Command {
 pub fn handle(matches: &ArgMatches, _settings: &Settings) -> anyhow::Result<()> {
     if let Some(matches) = matches.subcommand_matches("serve") {
         let port: u16 = *matches.get_one("port").unwrap_or(&8080);
-        start_tokio(port,_settings);
+        let _ = start_tokio(port,_settings);
         // println!("TBD: start the webserver on port {}", port)
     }
 
@@ -32,8 +34,10 @@ fn start_tokio(port: u16, _settings: &Settings) -> anyhow::Result<()> {
         .build()
         .unwrap()
         .block_on(async move {
+            let state = Arc::new(ApplicationState::new(_settings)?);
+            // tracing::info!("starting axum on port {:?}", &state);
             let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), port);
-            let routes = crate::api::configure()
+            let routes = crate::api::configure(state)
                 .layer(TraceLayer::new_for_http());
 
             tracing::info!("starting axum on port {}", port);

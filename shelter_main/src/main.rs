@@ -28,6 +28,7 @@ pub fn main() -> anyhow::Result<()>{
         .map(|s|s.as_str())
         .unwrap_or("");
     let settings = settings::Settings::new(config_location,"SHELTER")?;
+    // println!("aaa---{:?}",&settings);
     let subscriber = Registry::default()
         .with(LevelFilter::from_level(Level::DEBUG))
         .with(tracing_subscriber::fmt::Layer::default().with_writer(std::io::stdout));
